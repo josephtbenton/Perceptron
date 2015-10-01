@@ -50,7 +50,30 @@ public class MultiCharRecognizer implements RecognizerAI {
     private double[] label2doubles(String label) {
         double[] target = new double[8];
         switch (label) {
-            case "A"
+            case "A":
+                target[0] = 1;
+                break;
+            case "B":
+                target[1] = 1;
+                break;
+            case "C":
+                target[2] = 1;
+                break;
+            case "D":
+                target[3] = 1;
+                break;
+            case "E":
+                target[4] = 1;
+                break;
+            case "F":
+                target[5] = 1;
+                break;
+            case "G":
+                target[6] = 1;
+                break;
+            case "H":
+                target[7] = 1;
+                break;
         }
         return target;
     }
