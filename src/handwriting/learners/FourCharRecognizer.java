@@ -9,15 +9,15 @@ import java.util.concurrent.ArrayBlockingQueue;
 /**
  * Created by josephbenton on 9/28/15.
  */
-public class MultiCharRecognizer implements RecognizerAI {
+public class FourCharRecognizer implements RecognizerAI {
     MultiLayer net;
     double rate;
     int iterations;
 
-    public MultiCharRecognizer() {
-        this.net = new MultiLayer(1600, 30, 8);
-        rate = 0.1;
-        this.iterations = 1000;
+    public FourCharRecognizer() {
+        this.net = new MultiLayer(1600, 40, 4);
+        rate = 0.05;
+        this.iterations = 800;
     }
 
     @Override
@@ -48,31 +48,19 @@ public class MultiCharRecognizer implements RecognizerAI {
     }
 
     private double[] label2doubles(String label) {
-        double[] target = new double[8];
+        double[] target = new double[4];
         switch (label) {
             case "1":
-                target[0] = 1;
+                target[0] = 1.0;
                 break;
             case "2":
-                target[1] = 1;
+                target[1] = 1.0;
                 break;
             case "3":
-                target[2] = 1;
+                target[2] = 1.0;
                 break;
             case "4":
-                target[3] = 1;
-                break;
-            case "5":
-                target[4] = 1;
-                break;
-            case "6":
-                target[5] = 1;
-                break;
-            case "7":
-                target[6] = 1;
-                break;
-            case "8":
-                target[7] = 1;
+                target[3] = 1.0;
                 break;
         }
         return target;
@@ -81,13 +69,13 @@ public class MultiCharRecognizer implements RecognizerAI {
     @Override
     public String classify(Drawing d) {
         double[] output = net.compute(drawing2doubles(d));
-        int maxIndex = 0;
+        int index = 0;
         for (int i = 0; i < output.length; i++) {
-            if (Math.round(output[i]) == 1) {
-                maxIndex = i;
+            if (Math.round(output[i]) == 1){
+                index = i;
             }
         }
-        switch (maxIndex) {
+        switch (index) {
             case 0:
                 return "1";
             case 1:
@@ -96,14 +84,6 @@ public class MultiCharRecognizer implements RecognizerAI {
                 return "3";
             case 3:
                 return "4";
-            case 4:
-                return "5";
-            case 5:
-                return "6";
-            case 6:
-                return "7";
-            case 7:
-                return "8";
         }
         return "Unknown";
     }
